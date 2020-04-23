@@ -1,29 +1,32 @@
 package com.jcueduau.covid19tracker;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
@@ -31,7 +34,7 @@ import java.util.Iterator;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    TextView totalcasetxt;
+    TextView totalcase, activecase, recovered, deaths, casetdy, deathstdy, update;
     SwipeRefreshLayout mySwipeRefreshLayout;
     Document doc, germanDoc;
     String url = "https://www.worldometers.info/coronavirus/";
@@ -40,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
     Iterator<Element> rowIterator;
     ArrayList<CountryLine> allCountriesResults, FilteredArrList;
     int colNumCountry, colNumCases, colNumRecovered, colNumDeaths, colNumActive, colNumNewCases, colNumNewDeaths;
+    String tmpCountry, tmpCases, tmpRecovered, tmpDeaths, tmpPercentage, germanResults, tmpNewCases, tmpNewDeaths;
+    DecimalFormat generalDecimalFormat;
+    Calendar myCalender;
+    SimpleDateFormat myFormat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +74,15 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        totalcasetxt =(TextView)findViewById(R.id.totalcase);
+        totalcase =(TextView)findViewById(R.id.totalcasetxt);
+        activecase =(TextView)findViewById(R.id.activecasetxt);
+        recovered =(TextView)findViewById(R.id.recoveredtxt);
+        deaths =(TextView)findViewById(R.id.deathstxt);
+        casetdy =(TextView)findViewById(R.id.casetdytxt);
+        deathstdy=(TextView)findViewById(R.id.deathstdytxt);
+        update =(TextView)findViewById(R.id.updatetxt);
         allCountriesResults = new ArrayList<CountryLine>();
+        refreshData();
     }
 
     @Override
@@ -84,6 +98,8 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+
 
     void refreshData() {
         mySwipeRefreshLayout.setRefreshing(true);
@@ -132,16 +148,16 @@ public class MainActivity extends AppCompatActivity {
                                 cols = row.select("td");
 
                                 if (cols.get(0).text().contains("World")) {
-                                    textViewCases.setText(cols.get(colNumCases).text());
-                                    textViewRecovered.setText(cols.get(colNumRecovered).text());
-                                    textViewDeaths.setText(cols.get(colNumDeaths).text());
+                                    totalcase.setText(cols.get(colNumCases).text());
+                                    recovered.setText(cols.get(colNumRecovered).text());
+                                    deaths.setText(cols.get(colNumDeaths).text());
 
-                                    if (cols.get(colNumActive).hasText()) {textViewActive.setText(cols.get(colNumActive).text());}
-                                    else {textViewActive.setText("0");}
-                                    if (cols.get(colNumNewCases).hasText()) {textViewNewCases.setText(cols.get(colNumNewCases).text());}
-                                    else {textViewNewCases.setText("0");}
-                                    if (cols.get(colNumNewDeaths).hasText()) {textViewNewDeaths.setText(cols.get(colNumNewDeaths).text());}
-                                    else {textViewNewDeaths.setText("0");}
+                                    if (cols.get(colNumActive).hasText()) {activecase.setText(cols.get(colNumActive).text());}
+                                    else {activecase.setText("0");}
+                                    if (cols.get(colNumNewCases).hasText()) {casetdy.setText(cols.get(colNumNewCases).text());}
+                                    else {casetdy.setText("0");}
+                                    if (cols.get(colNumNewDeaths).hasText()) {deathstdy.setText(cols.get(colNumNewDeaths).text());}
+                                    else {deathstdy.setText("0");}
                                     continue;
                                 } else if (
                                         cols.get(0).text().contains("Total") ||
@@ -194,22 +210,8 @@ public class MainActivity extends AppCompatActivity {
                                 allCountriesResults.add(new CountryLine(tmpCountry, tmpCases, tmpNewCases, tmpRecovered, tmpDeaths, tmpNewDeaths));
                             }
 
-                            setListViewCountries(allCountriesResults);
-                            textSearchBox.setText(null);
-                            textSearchBox.clearFocus();
-
-                            // save results
-                            editor.putString("textViewCases", textViewCases.getText().toString());
-                            editor.putString("textViewRecovered", textViewRecovered.getText().toString());
-                            editor.putString("textViewActive", textViewActive.getText().toString());
-                            editor.putString("textViewDeaths", textViewDeaths.getText().toString());
-                            editor.putString("textViewDate", textViewDate.getText().toString());
-                            editor.apply();
-
-                            calculate_percentages();
-
                             myCalender = Calendar.getInstance();
-                            textViewDate.setText("Last updated: " + myFormat.format(myCalender.getTime()));
+                            update.setText("Last updated: " + myFormat.format(myCalender.getTime()));
                         }
                     });
                 }
