@@ -82,6 +82,15 @@ public class MainActivity extends AppCompatActivity {
         deathstdy=(TextView)findViewById(R.id.deathstdytxt);
         update =(TextView)findViewById(R.id.updatetxt);
         allCountriesResults = new ArrayList<CountryLine>();
+        mySwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.coronaMainSwipeRefresh);
+        mySwipeRefreshLayout.setOnRefreshListener(
+                new SwipeRefreshLayout.OnRefreshListener() {
+                    @Override
+                    public void onRefresh() {
+                        refreshData();
+                    }
+                }
+        );
         refreshData();
     }
 
@@ -180,10 +189,7 @@ public class MainActivity extends AppCompatActivity {
                                 if (cols.get(colNumRecovered).hasText()){
                                     if(!cols.get(colNumRecovered).text().contains("N/A")) {
                                         tmpRecovered = cols.get(colNumRecovered).text();
-                                        tmpPercentage = (generalDecimalFormat.format(Double.parseDouble(tmpRecovered.replaceAll(",", ""))
-                                                / Double.parseDouble(tmpCases.replaceAll(",", ""))
-                                                * 100)) + "%";
-                                        tmpRecovered = tmpRecovered + "\n" + tmpPercentage;
+                                        Log.e("recovertmplog",tmpRecovered);;
                                     }
                                     else {tmpRecovered = "NA";}
                                 }
@@ -192,10 +198,6 @@ public class MainActivity extends AppCompatActivity {
                                 if(cols.get(colNumDeaths).hasText()) {
                                     if(!cols.get(colNumDeaths).text().contains("N/A")) {
                                         tmpDeaths = cols.get(colNumDeaths).text();
-                                        tmpPercentage = (generalDecimalFormat.format(Double.parseDouble(tmpDeaths.replaceAll(",", ""))
-                                                / Double.parseDouble(tmpCases.replaceAll(",", ""))
-                                                * 100)) + "%";
-                                        tmpDeaths = tmpDeaths + "\n" + tmpPercentage;
                                     }
                                     else {tmpDeaths = "NA";}
                                 }
@@ -211,7 +213,9 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                             myCalender = Calendar.getInstance();
-                            update.setText("Last updated: " + myFormat.format(myCalender.getTime()));
+                            System.out.println(" Current time is : " + myCalender.getTime());
+                            update.setText("Last updated: " + myCalender.getTime());
+//                            update.setText("Last updated: " + myFormat.format(Calendar.getInstance().getTime()));
                         }
                     });
                 }
