@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,6 +30,7 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 
 public class MainActivity extends AppCompatActivity {
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     DecimalFormat generalDecimalFormat;
     Calendar myCalender;
     SimpleDateFormat myFormat;
+    Button action_settingbtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Comming Soon", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -74,6 +77,14 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+//        action_settingbtn=(Button)findViewById(R.id.action_settings);
+//        action_settingbtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(MainActivity.this,setting.class);
+//                startActivity(intent);
+//            }
+//        });
         totalcase =(TextView)findViewById(R.id.totalcasetxt);
         activecase =(TextView)findViewById(R.id.activecasetxt);
         recovered =(TextView)findViewById(R.id.recoveredtxt);
@@ -212,9 +223,13 @@ public class MainActivity extends AppCompatActivity {
                                 allCountriesResults.add(new CountryLine(tmpCountry, tmpCases, tmpNewCases, tmpRecovered, tmpDeaths, tmpNewDeaths));
                             }
 
-                            myCalender = Calendar.getInstance();
-                            System.out.println(" Current time is : " + myCalender.getTime());
-                            update.setText("Last updated: " + myCalender.getTime());
+//                            myCalender = Calendar.getInstance();
+//                            System.out.println(" Current time is : " + myCalender.getTime());
+                            Date newdate =new Date();
+                            SimpleDateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy 'at' h:m:s a");
+                            update.setText("Last updated: " + dateFormatter.format(newdate));
+                            System.out.println("Current Time"+ dateFormatter.format(newdate));
+
 //                            update.setText("Last updated: " + myFormat.format(Calendar.getInstance().getTime()));
                         }
                     });

@@ -26,7 +26,14 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@drawable/bg_thre"
             android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                app:srcCompat="@drawable/warning_tp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -40,6 +47,10 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingLeft="10dp"
+                    android:shadowColor="#000000"
+                    android:shadowDx="10"
+                    android:shadowDy="10"
+                    android:shadowRadius="10"
                     android:text="22,April,2020"
                     android:textColor="#F44336"
                     android:textSize="18sp" />
@@ -57,6 +68,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/textview_border"
                 android:orientation="horizontal"
                 android:padding="20dp">
 
@@ -66,6 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Coronavirus Cases:"
+                    android:textColor="#101010"
                     android:textSize="24sp" />
 
                 <TextView
@@ -75,12 +91,17 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="0000000"
+                    android:textColor="#590485"
                     android:textSize="24sp" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/textview_border"
                 android:orientation="horizontal"
                 android:padding="20dp">
 
@@ -90,6 +111,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Active Cases:"
+                    android:textColor="#000000"
                     android:textSize="24sp" />
 
                 <TextView
@@ -99,6 +121,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="0000000"
+                    android:textColor="#590485"
                     android:textSize="24sp" />
             </LinearLayout>
 
@@ -111,7 +134,9 @@
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:layout_weight="50"
+                    android:background="@drawable/textview_border"
                     android:orientation="vertical"
                     android:padding="20dp">
 
@@ -121,6 +146,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="Recovered"
+                        android:textColor="#00970D"
                         android:textSize="24sp" />
 
                     <TextView
@@ -129,13 +155,16 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="000000"
+                        android:textColor="#00970D"
                         android:textSize="24sp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:layout_weight="50"
+                    android:background="@drawable/textview_border"
                     android:orientation="vertical"
                     android:padding="20dp">
 
@@ -145,6 +174,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="Deaths"
+                        android:textColor="#FF0505"
                         android:textSize="24sp" />
 
                     <TextView
@@ -153,6 +183,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="00000"
+                        android:textColor="#FF0505"
                         android:textSize="24sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -166,7 +197,9 @@
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
                     android:layout_weight="50"
+                    android:background="@drawable/textview_border"
                     android:orientation="vertical"
                     android:padding="20dp">
 
@@ -176,6 +209,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="CaseToday"
+                        android:textColor="#AA9300"
                         android:textSize="24sp" />
 
                     <TextView
@@ -184,13 +218,16 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="00000"
+                        android:textColor="#AA9300"
                         android:textSize="24sp" />
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
+                    android:layout_margin="10dp"
                     android:layout_weight="50"
+                    android:background="@drawable/textview_border"
                     android:orientation="vertical"
                     android:padding="20dp">
 
@@ -200,6 +237,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="DeathsToday"
+                        android:textColor="#8A065E"
                         android:textSize="24sp" />
 
                     <TextView
@@ -208,6 +246,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="000000"
+                        android:textColor="#8A065E"
                         android:textSize="24sp" />
                 </LinearLayout>
             </LinearLayout>
